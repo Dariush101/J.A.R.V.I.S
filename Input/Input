@@ -1,1 +1,10 @@
+def question():
+    
+    return input("Hello, I am Jarvis. How can I help you today?: ")
 
+
+
+if __name__ == "__main__":
+    answer = question()
+    from CPU.Controll_Unit import control_unit
+    control_unit(answer)
