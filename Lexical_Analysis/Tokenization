@@ -1,0 +1,117 @@
+# Tokenization is the process of splitting text into smaller units called tokens
+
+# doc (full text)
+# │
+# ├── doc.sents (all sentences)
+# │     │
+# │     ├── sent (Sentence 1)
+# │     │     ├── sent.text → "Hello, I am Jarvis."
+# │     │     │
+# │     │     ├── token (object)
+# │     │     │     └── token.text → "Hello"
+# │     │     │
+# │     │     ├── token (object)
+# │     │     │     └── token.text → ","
+# │     │     │
+# │     │     ├── token (object)
+# │     │     │     └── token.text → "I"
+# │     │     │
+# │     │     ├── token (object)
+# │     │     │     └── token.text → "am"
+# │     │     │
+# │     │     ├── token (object)
+# │     │     │     └── token.text → "Jarvis"
+# │     │     │
+# │     │     └── token (object)
+# │     │           └── token.text → "."
+# │     │
+# │     └── sent (Sentence 2)
+# │           ├── sent.text → "How can I help you today?"
+# │           │
+# │           ├── token → token.text → "How"
+# │           ├── token → token.text → "can"
+# │           ├── token → token.text → "I"
+# │           ├── token → token.text → "help"
+# │           ├── token → token.text → "you"
+# │           ├── token → token.text → "today"
+# │           └── token → token.text → "?"
+import spacy
+import sys
+import os
+import json
+
+nlp = spacy.load("en_core_web_sm")
+
+# Run once and reuse the result everywhere
+def create_doc(text):
+    return nlp(text)  # only called once
+
+
+# Sentence Tokenization splits paragraphs into sentences. Most NLP tasks work sentence by sentence
+def sentence_tokenization(doc):
+    sentence= [sentence.text for sentence in doc.sents]
+    return sentence
+
+
+
+
+# Sentence Tokenization splits paragraphs into sentences. Most NLP tasks work sentence by sentence
+def word_tokenization(doc):
+
+    # The reason why we are not using sentence_tokenization cause then we would loop through the strings not the characters
+
+    # We will store the words into this array
+    words = []
+
+    # It will break the pargraph into sentences
+    for sentence in doc.sents:
+        # We will store the sentences into this array
+        sentence_words = []
+
+        # Once we get a sentence then we will break it down into words
+        for token in sentence:
+            # Adds one word to the current sentence. We break each sentence into words but they are still seperated in their respeceted section
+            sentence_words.append(token.text)
+
+        # Adds words into on token. It will make just one long array full of words
+        words.append(sentence_words)
+
+    return words
+
+
+
+def main_Tokenization(answer):
+    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+    # Input = the whole file (module)
+    # .variable = the variable inside that file
+    text = (answer)
+
+
+
+    # # Takes Strings and store it into text
+    # text = sys.argv[1]
+
+    doc = create_doc(text)  # Run once and reuse the result everywhere
+
+
+    sentences = sentence_tokenization(doc)
+    word = word_tokenization(doc)
+
+    output = {
+        "sentences": sentences,
+        "words": word,
+    }
+
+    return output
+
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print(json.dumps({"error": "No input text provided"}))
+        sys.exit(1)
+
+    text = sys.argv[1]
+    result = main_Tokenization(text)
+    print(json.dumps(result))
