@@ -1,8 +1,14 @@
-import subprocess
-import json
+******************************************************************** We will make a a new folder named OS 
+************** and it will be a central path manager file so every script can find everything
+************** no matter what machine or folder it’s in.
 
-token = 0
 
+
+import subprocess   # Lets us run another Python file (Tokenization.py) as a separate process        (LEARN HOW TO USE THIS)
+import json         # Used to convert JSON text into Python data (dict)                              (LEARN HOW TO USE THIS)
+import os           # Used for file paths (cross-platform safe)                                      (LEARN HOW TO USE THIS)
+
+token = 0           # Control flag (used to decide when to run this block)
 
 
 def control_unit(answer):
