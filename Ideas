@@ -1,0 +1,12 @@
+I am going to use threading so my program can listen, process, and respond at the same time without freezing 
+or waiting on one task to finish first. 
+
+I am going to use multiprocessing when I want your program to run heavy tasks in parallel using multiple CPU cores, 
+instead of being limited by one core like threading. Will code in C for the speed
+
+
+For both of them:
+
+write most of the program in Python
+make a C program for the fast part
+call it from Python with subprocess
