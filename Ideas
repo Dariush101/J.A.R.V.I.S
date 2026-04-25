@@ -10,3 +10,53 @@ For both of them:
 write most of the program in Python
 make a C program for the fast part
 call it from Python with subprocess
+
+
+
+
+We willStore every conversation, result, tool output, and useful fact in a database, 
+then let Jarvis check that first before calling APIs again.
+
+At first Jarvis may be slower because it is:
+
+learning
+storing
+organizing
+building memory
+
+Later it gets faster because it can:
+
+reuse old answers
+avoid repeated API calls
+remember your projects and habits
+search its own database first
+
+Every saved answer should have:
+
+the answer
+when it was saved
+where it came from
+whether it can expire
+
+
+Before reusing an old answer, Jarvis should ask:
+
+Is this the kind of thing that changes?
+How old is this saved answer?
+Should I refresh it before answering?
+
+
+We can use threading
+
+one thread saves new conversations
+one thread searches old memory
+one thread handles live response
+one thread checks whether old cached answers need refreshing
+
+But for heavy CPU work, multiprocessing is usually better.
+
+
+
+
+
+
